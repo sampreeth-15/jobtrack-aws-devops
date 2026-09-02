@@ -1,26 +1,7 @@
-# Python
-__pycache__/
-*.py[cod]
-.venv/
 venv/
+__pycache__/
+*.pyc
 .env
-
-# VS Code
-.vscode/
-
-# Terraform
-.terraform/
-*.tfstate
-*.tfstate.*
-terraform.tfvars
-*.tfvars
-
-# AWS
-.aws/
-
-# Private keys
-*.pem
-
-# Operating system files
-Thumbs.db
-.DS_Store
+.venv/
+instance/
+.pytest_cache/

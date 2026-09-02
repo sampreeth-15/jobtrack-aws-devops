@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>JobTrack - Edit Job</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <!-- Top Header -->
+    <div class="top-bar">
+
+        <div>
+            <h1>JobTrack</h1>
+            <p>Edit job application</p>
+        </div>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- Edit Form -->
+    <div class="form-card">
+
+        <h2>Edit Job Application</h2>
+
+
+        <form method="POST">
+
+
+            <!-- Company -->
+            <div class="form-group">
+
+                <label for="company">
+                    Company Name
+                </label>
+
+                <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value="{{ job.company }}"
+                    placeholder="e.g. Amazon"
+                    required>
+
+            </div>
+
+
+            <!-- Role -->
+            <div class="form-group">
+
+                <label for="role">
+                    Job Role
+                </label>
+
+                <input
+                    type="text"
+                    id="role"
+                    name="role"
+                    value="{{ job.role }}"
+                    placeholder="e.g. AWS DevOps Engineer"
+                    required>
+
+            </div>
+
+
+            <!-- Location -->
+            <div class="form-group">
+
+                <label for="location">
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    value="{{ job.location or '' }}"
+                    placeholder="e.g. Bangalore / Remote">
+
+            </div>
+
+
+            <!-- Job Type -->
+            <div class="form-group">
+
+                <label for="job_type">
+                    Job Type
+                </label>
+
+                <select
+                    id="job_type"
+                    name="job_type">
+
+                    <option value="">
+                        Select Job Type
+                    </option>
+
+                    <option value="Full Time"
+                        {% if job.job_type == "Full Time" %}selected{% endif %}>
+                        Full Time
+                    </option>
+
+                    <option value="Part Time"
+                        {% if job.job_type == "Part Time" %}selected{% endif %}>
+                        Part Time
+                    </option>
+
+                    <option value="Contract"
+                        {% if job.job_type == "Contract" %}selected{% endif %}>
+                        Contract
+                    </option>
+
+                    <option value="Internship"
+                        {% if job.job_type == "Internship" %}selected{% endif %}>
+                        Internship
+                    </option>
+
+                    <option value="Remote"
+                        {% if job.job_type == "Remote" %}selected{% endif %}>
+                        Remote
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Application Date -->
+            <div class="form-group">
+
+                <label for="application_date">
+                    Application Date
+                </label>
+
+                <input
+                    type="date"
+                    id="application_date"
+                    name="application_date"
+                    value="{{ job.application_date.strftime('%Y-%m-%d') if job.application_date else '' }}">
+
+            </div>
+
+
+            <!-- Job URL -->
+            <div class="form-group">
+
+                <label for="job_url">
+                    Job URL
+                </label>
+
+                <input
+                    type="url"
+                    id="job_url"
+                    name="job_url"
+                    value="{{ job.job_url or '' }}"
+                    placeholder="https://example.com/job">
+
+            </div>
+
+
+            <!-- Salary -->
+            <div class="form-group">
+
+                <label for="salary">
+                    Salary
+                </label>
+
+                <input
+                    type="text"
+                    id="salary"
+                    name="salary"
+                    value="{{ job.salary or '' }}"
+                    placeholder="e.g. 8 LPA">
+
+            </div>
+
+
+            <!-- Status -->
+            <div class="form-group">
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select
+                    id="status"
+                    name="status"
+                    required>
+
+                    <option value="Applied"
+                        {% if job.status == "Applied" %}selected{% endif %}>
+                        Applied
+                    </option>
+
+                    <option value="Interview"
+                        {% if job.status == "Interview" %}selected{% endif %}>
+                        Interview
+                    </option>
+
+                    <option value="Offer"
+                        {% if job.status == "Offer" %}selected{% endif %}>
+                        Offer
+                    </option>
+
+                    <option value="Rejected"
+                        {% if job.status == "Rejected" %}selected{% endif %}>
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Notes -->
+            <div class="form-group">
+
+                <label for="notes">
+                    Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="notes"
+                    rows="5"
+                    placeholder="Add notes about this application...">{{ job.notes or '' }}</textarea>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="login-button">
+                    Update Job
+                </button>
+
+                <a
+                    href="{{ url_for('dashboard') }}"
+                    class="cancel-button">
+                    Cancel
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
