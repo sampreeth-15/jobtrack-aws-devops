@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.secret_key = "jobtrack-development-secret-key"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql+psycopg2://postgres@localhost:5432/jobtrack"
+    "postgresql+psycopg2://postgres@host.docker.internal:5432/jobtrack"
 )
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
