@@ -6,6 +6,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import app, db
 from app.models import User, Job
 
+@app.route("/health")
+def health():
+    return {"status": "healthy"}, 200
+
 
 @app.route("/")
 def home():

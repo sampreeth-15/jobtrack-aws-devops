@@ -1,0 +1,42 @@
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: jobtrack-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: jobtrack
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d jobtrack"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    container_name: jobtrack-container
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/jobtrack
+      CREATE_DB: "true"
+
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
