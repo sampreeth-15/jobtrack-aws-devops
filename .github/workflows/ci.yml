@@ -68,4 +68,4 @@ jobs:
         run: |
           aws ecs wait services-stable \
             --cluster jobtrack-cluster \
-            --services jobtrack-service# OIDC trust policy updated
+            --services jobtrack-service
