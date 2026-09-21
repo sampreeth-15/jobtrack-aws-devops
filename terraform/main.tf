@@ -291,6 +291,13 @@ resource "aws_cloudwatch_log_group" "jobtrack" {
   }
 }
 
+data "aws_secretsmanager_secret" "database" {
+  name = "jobtrack/database"
+}
+
+data "aws_secretsmanager_secret" "flask_secret" {
+  name = "jobtrack/flask-secret"
+}
 resource "aws_ecs_task_definition" "jobtrack" {
   family                   = "jobtrack"
   network_mode             = "awsvpc"
@@ -304,7 +311,7 @@ resource "aws_ecs_task_definition" "jobtrack" {
   container_definitions = jsonencode([
     {
       name      = "jobtrack"
-      image     = "100247989016.dkr.ecr.ap-south-1.amazonaws.com/jobtrack:latest"
+      image     = "100247989016.dkr.ecr.ap-south-1.amazonaws.com/jobtrack:gunicorn"
       essential = true
 
       portMappings = [
@@ -315,20 +322,23 @@ resource "aws_ecs_task_definition" "jobtrack" {
         }
       ]
 
-      environment = [
-        {
-         name  = "DATABASE_URL"
-         value = "postgresql+psycopg2://jobtrack_admin:${var.db_password}@         ${aws_db_instance.jobtrack.address}:5432/jobtrack"
-        },
-        {
-          name  = "SECRET_KEY"
-          value = "jobtrack-production-secret-change-this"
-        },
-        {
-          name  = "CREATE_DB"
-          value = "true"
-        }
-      ]
+             
+         environment = [
+  {
+    name  = "CREATE_DB"
+    value = "true"
+  }]
+
+secrets = [
+  {
+    name      = "DATABASE_URL"
+   valueFrom = "${data.aws_secretsmanager_secret.database.arn}"
+  },
+  {
+    name      = "SECRET_KEY"
+    valueFrom = "${data.aws_secretsmanager_secret.flask_secret.arn}"
+  }
+]
 
       healthCheck = {
         command = [
