@@ -9,18 +9,20 @@ Python, Flask, PostgreSQL, Docker, AWS, Terraform and GitHub Actions.
 
 ## Planned Technologies
 
-- Python
-- Flask
-- PostgreSQL
-- HTML
-- CSS
-- JavaScript
-- Docker
-- GitHub Actions
-- Terraform
-- AWS EC2
-- AWS ECR
-- AWS RDS
-- AWS ALB
-- AWS VPC
-- AWS CloudWatch
+* Python
+* Flask
+* PostgreSQL
+* HTML
+* CSS
+* JavaScript
+* Docker
+* GitHub Actions
+* Terraform
+* AWS EC2
+* AWS ECR
+* AWS RDS
+* AWS ALB
+* AWS VPC
+* AWS CloudWatch
+* CI/CD deployment test - October 2026
+
