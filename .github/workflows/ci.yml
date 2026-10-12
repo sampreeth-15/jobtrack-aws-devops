@@ -47,6 +47,17 @@ jobs:
         run: |
           docker build -t jobtrack:gunicorn .
 
+      - name: Trivy security scan
+        uses: aquasecurity/trivy-action@0.36.0
+        with:
+          scan-type: image
+          image-ref: jobtrack:gunicorn
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+          format: table
+
       - name: Tag Docker image
         run: |
           docker tag jobtrack:gunicorn \
